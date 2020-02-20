@@ -14,7 +14,7 @@ class RandomOperatorCommand extends BaseCommand {
 
   async invoke () {
     if (this._args.length < 1) {
-      return this.reply('Usage: randomop <role (attacker or defender)>')
+      return this.reply('사용법: randomop <역할 (공격(attacker)혹은 수비(defender))>')
     }
 
     let { data: operators } = await this._api.call({
@@ -44,12 +44,12 @@ class RandomOperatorCommand extends BaseCommand {
     this.reply({
       embed: {
         color: 3447003,
-        title: 'Random Operator',
+        title: '랜덤 오퍼레이터',
         fields: [
           {
-            name: 'Chosen Operator',
+            name: '선택된 오퍼레이터',
             inline: true,
-            value: '**Name**:' + name + '\n'
+            value: '**이름**:' + name + '\n'
           }
         ],
         thumbnail: {

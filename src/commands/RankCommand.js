@@ -70,21 +70,21 @@ class RankCommand extends BaseCommand {
 
   async invoke() {
     if (this._args.length < 2) {
-      return this.reply('Usage: rank <username> <platform> {region} {season}')
+      return this.reply('사용법: rank <이름> <플랫폼> {지역} {시즌}')
     }
 
     this.hydrateParamaters()
 
     try {
       var { data: players } = await this._api.playerSearch({ username: this.username, platform: this.platform.name })
-      if (!(players && players.length && players.length >= 1)) return this.reply('No players found.')
+      if (!(players && players.length && players.length >= 1)) return this.reply('플레이어를 찾지 못했어요.')
 
       var player = players[0]
 
       var { data: rawStats } = await this._api.seasonalStats({ uuid: player.ubisoft_id })
-      if (!(rawStats)) return this.reply('Stats not found.')
+      if (!(rawStats)) return this.reply('전적을 찾지 못했어요.')
     } catch (e) {
-      return this.reply('Stats not found.')
+      return this.reply('전적을 찾지 못했어요.')
     }
 
     const seasons = Object.values(rawStats.seasons).sort((a, b) => (b.id - a.id))
@@ -97,7 +97,7 @@ class RankCommand extends BaseCommand {
     }
 
     if (!season) {
-      return this.reply('Season not found.')//.then(m => m.delete(3000))
+      return this.reply('시즌을 찾지 못했어요.')//.then(m => m.delete(3000))
     }
 
     if (this.region) {
@@ -110,7 +110,7 @@ class RankCommand extends BaseCommand {
 
     let { region: regionKey, wins, losses, abandons, max_mmr, mmr, prev_rank_mmr, next_rank_mmr, skill_mean, skill_standard_deviation, rank, max_rank, champions_rank_position, season_id } = region
 
-    const title = `Operation ${season.name} Stats for ${player.username} in ${REGION_CONVERTS[regionKey]}`
+    const title = `오퍼레이션 ${season.name}의 ${player.username}님의 ${REGION_CONVERTS[regionKey]}에서의 전적`
     const statsUrl = `https://r6stats.com/stats/${player.ubisoft_id}/seasons`
 
     this.reply({
@@ -122,39 +122,39 @@ class RankCommand extends BaseCommand {
           icon_url: this.platform.image
         },
         thumbnail: {
-          url: this.rankIconThumbnail(season_id, max_rank, champions_rank_position),
+          url: this.rankIconThumbnail(season_id, rank, champions_rank_position),
         },
         title,
-        description: `[View Full Stats for ${player.username}](${statsUrl})`,
+        description: `[${player.username}의 스탯 보러가기](${statsUrl})`,
         fields: [
           {
-            name: 'Rank',
+            name: '랭크',
             inline: true,
-            value: '**Current MMR**: ' + mmr + '\n'
-              + '**Current Rank**: ' + this.currentRankName(season_id, rank, champions_rank_position) + '\n'
-              + '**Max MMR**: ' + Number(max_mmr).toFixed(2) + '\n'
-              + '**Max Rank**: ' + this.currentRankName(season_id, max_rank, champions_rank_position) + '\n'
-              + '**Skill**: ' + Number(skill_mean).toFixed(2) + '±' + Number(skill_standard_deviation).toFixed(2),
+            value: '**현재 MMR**: ' + mmr + '\n'
+              + '**현재 랭크**: ' + this.currentRankName(season_id, rank, champions_rank_position) + '\n'
+              + '**최대 MMR**: ' + Number(max_mmr).toFixed(2) + '\n'
+              + '**최대 랭크**: ' + this.currentRankName(season_id, max_rank, champions_rank_position) + '\n'
+              + '**스킬**: ' + Number(skill_mean).toFixed(2) + '±' + Number(skill_standard_deviation).toFixed(2),
           },
           {
-            name: 'Progress',
+            name: '진행도',
             inline: true,
-            value: '**Previous Rank**: ' + prev_rank_mmr + '\n'
-              + '**Current MMR**: ' + mmr + '\n'
-              + '**Next Rank**: ' + ((next_rank_mmr === 0) ? 'N/A' : next_rank_mmr)
+            value: '**이전 랭크**: ' + prev_rank_mmr + '\n'
+              + '**현재 MMR**: ' + mmr + '\n'
+              + '**다음 랭크**: ' + ((next_rank_mmr === 0) ? 'N/A' : next_rank_mmr)
           },
           {
-            name: 'Matches',
+            name: '경기',
             inline: true,
-            value: '**Wins**: ' + wins + '\n'
-              + '**Losses**: ' + losses + '\n'
-              + '**W/L**: ' + (losses === 0 ? 'n/a' : Number(wins / losses).toFixed(2)) + '\n'
-              + '**Abandons**: ' + abandons
+            value: '**승리**: ' + wins + '\n'
+              + '**패배**: ' + losses + '\n'
+              + '**승률**: ' + (losses === 0 ? 'n/a' : Number(wins / losses).toFixed(2)) + '\n'
+              + '**탈주**: ' + abandons
           },
         ],
         footer: {
           icon_url: 'https://r6stats.com/img/logos/r6stats-100.png',
-          text: 'Stats Provided by R6Stats.com',
+          text: 'R6Stats.com 에서 스탯 제공됨',
           url: 'https://r6stats.com'
         }
       }

@@ -15,7 +15,7 @@ class OperatorStatsCommand extends BaseCommand {
 
   async invoke() {
     if (this._args.length < 3) {
-      return this.reply('Usage: operator <username> <platform> <operator>')
+      return this.reply('사용법: operator <닉네임> <플랫폼> <오퍼레이터>')
     }
 
     this.hydrateParameters()
@@ -26,11 +26,11 @@ class OperatorStatsCommand extends BaseCommand {
     const player = players[0]
 
     const { data: { operators } } = await this._api.playerStats({ uuid: player.ubisoft_id })
-    if (!(operators)) return this.reply('Stats not found.')
+    if (!(operators)) return this.reply('전적을 찾을수가 없어요.')
 
     const operator = operators.find(op => op.operator.internal_name === this.operator.toLowerCase())
 
-    if (!operator) return this.reply('Operator not found.')
+    if (!operator) return this.reply('오퍼레이터를 찾을수가 없어요.')
 
     let { operator: { name, role, ctu, images: { badge } }, abilities, kills, deaths, kd, wins, losses, wl, playtime: timePlayed } = operator
     role = (role === 'defender' ? 'Defender' : 'Attacker')
@@ -45,7 +45,7 @@ class OperatorStatsCommand extends BaseCommand {
       embed: {
         color: 3447003,
         author: {
-          name: player.username + ' Operator Stats',
+          name: player.username + '의 오퍼레이터 전적',
           url: 'https://r6stats.com/stats/' + player.ubisoft_id,
           icon_url: this.platform.image
         },
@@ -54,36 +54,36 @@ class OperatorStatsCommand extends BaseCommand {
         },
         fields: [
           {
-            name: 'About',
+            name: '정보',
             inline: true,
-            value: '**Operator**: ' + name + '\n'
-              + '**Role**: ' + role + '\n'
-              + '**CTU**: ' + ctu + '\n'
-              + '**Playtime** ' + timePlayed + '\n'
+            value: '**오퍼레이터**: ' + name + '\n'
+              + '**역할**: ' + role + '\n'
+              + '**부대**: ' + ctu + '\n'
+              + '**플레이타임** ' + timePlayed + '\n'
           },
           {
-            name: 'Kill/Death',
+            name: '킬/데스',
             inline: true,
-            value: '**Kills**: ' + kills + '\n'
-              + '**Deaths**: ' + deaths + '\n'
+            value: '**킬**: ' + kills + '\n'
+              + '**데스**: ' + deaths + '\n'
               + '**K/D**: ' + kd + '\n'
           },
           {
-            name: 'Win/Loss',
+            name: '승/패',
             inline: true,
-            value: '**Wins**: ' + wins + '\n'
-              + '**Losses**: ' + losses + '\n'
-              + '**W/L**: ' + wl + '\n'
+            value: '**승리**: ' + wins + '\n'
+              + '**패배**: ' + losses + '\n'
+              + '**승률**: ' + wl + '\n'
           },
           {
-            name: 'Specials',
+            name: '특별',
             inline: true,
             value: specialLine
           }
         ],
         footer: {
           icon_url: 'https://r6stats.com/img/logos/r6stats-100.png',
-          text: 'Stats Provided by R6Stats.com',
+          text: 'R6Stats.com 에서 스탯 제공됨',
           url: 'https://r6stats.com'
         }
       }
@@ -103,7 +103,7 @@ class OperatorStatsCommand extends BaseCommand {
     let platform = getPlatform(this._args[i].toLowerCase())
     let operator = this._args[i + 1]
     if (!platform) {
-      return this.reply(`The platform ${this._args[i]} is invalid. Specify pc, xbox, or ps4.`)
+      return this.reply(`${this._args[i]}플랫폼 이름이 올바르지 않습니다. pc, xbox, or ps4 중 하나를 선택하십시오.`)
     }
     this.platform = platform
     this.operator = operator

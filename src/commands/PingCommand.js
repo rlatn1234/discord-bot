@@ -10,7 +10,7 @@ class PingCommand extends BaseCommand {
   }
 
   invoke () {
-    this.reply('Pong!')
+    this.reply('퐁!')
   }
 }
 

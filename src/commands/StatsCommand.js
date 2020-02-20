@@ -15,21 +15,21 @@ class StatsCommand extends BaseCommand {
 
   async invoke() {
     if (this._args.length < 2) {
-      return this.reply('Usage: stats <username> <platform> {queue}')
+      return this.reply('사용법: stats <닉네임> <플랫폼> {queue}')
     }
 
     this.hydrateParameters()
 
     try {
       var { data: players } = await this._api.playerSearch({ username: this.username, platform: this.platform.name })
-      if (!(players && players.length && players.length >= 1)) return this.reply('No players found.')
+      if (!(players && players.length && players.length >= 1)) return this.reply('플레이어를 찾을수 없어요.')
 
       var player = players[0]
 
       var { data: rawStats } = await this._api.playerStats({ uuid: player.ubisoft_id })
-      if (!(rawStats)) return this.reply('Stats not found.')
+      if (!(rawStats)) return this.reply('전적을 찾지 못했어요.')
     } catch (e) {
-      return this.reply('Stats not found.')
+      return this.reply('전적을 찾지 못했어요.')
     }
 
     const stats = rawStats.stats[0]
@@ -43,8 +43,8 @@ class StatsCommand extends BaseCommand {
       var { kills, deaths, wins, losses } = stats.queue.casual
     }
 
-    let kd = deaths > 0 ? (kills / deaths).toFixed(2) : 'N/A'
-    let wlr = losses > 0 ? (wins / losses).toFixed(2) : 'N/A'
+    let kd = deaths > 0 ? (kills / deaths).toFixed(2) : '정보 없음'
+    let wlr = losses > 0 ? (wins / losses).toFixed(2) : '정보 없음'
 
     let {
       assists, headshots, revives,
@@ -73,53 +73,53 @@ class StatsCommand extends BaseCommand {
         thumbnail: {
           url: `https://ubisoft-avatars.akamaized.net/${player.ubisoft_id}/default_146_146.png`
         },
-        title: title + ' Player Stats',
-        description: `[View Full Stats for ${player.username}](${statsUrl})`,
+        title: title + ' 플레이어 전적',
+        description: `[${player.username}의 전체 전적 보기](${statsUrl})`,
         fields: [
           {
-            name: 'About',
+            name: '정보',
             inline: true,
-            value: '**Level**: ' + level + '\n'
-              + '**Playtime**: ' + playtime(timePlayed) + '\n'
-              + '**Lootbox Chance**: ' + (lootbox_probability / 100) + '%'
+            value: '**레벨**: ' + level + '\n'
+              + '**플레이타임**: ' + playtime(timePlayed) + '\n'
+              + '**알파팩 확률**: ' + (lootbox_probability / 100) + '%'
           },
           {
-            name: 'Kill/Deaths',
+            name: '킬/데스',
             inline: true,
-            value: '**Kills**: ' + kills + '\n'
-              + '**Deaths**: ' + deaths + '\n'
-              + '**Assists**: ' + assists + '\n'
+            value: '**킬**: ' + kills + '\n'
+              + '**데스**: ' + deaths + '\n'
+              + '**어시스트**: ' + assists + '\n'
               + '**K/D**: ' + kd
           },
           {
-            name: 'Win/Loss',
+            name: '승/패',
             inline: true,
-            value: '**Wins**: ' + wins + '\n'
-              + '**Losses**: ' + losses + '\n'
-              + '**W/L**: ' + wlr
+            value: '**승리**: ' + wins + '\n'
+              + '**패배**: ' + losses + '\n'
+              + '**승률**: ' + wlr
           },
           {
-            name: 'Kills Breakdown',
+            name: '킬 분석',
             inline: true,
-            value: '**Headshots**: ' + headshots + '\n'
-              + '**Blind Kills**: ' + blind_kills + '\n'
-              + '**Melee Kills**: ' + melee_kills + '\n'
-              + '**Penetration Kills**: ' + penetration_kills
+            value: '**헤드샷**: ' + headshots + '\n'
+              + '**블라인드 킬**: ' + blind_kills + '\n'
+              + '**근접공격 킬**: ' + melee_kills + '\n'
+              + '**레펠링 킬**: ' + penetration_kills
           },
           {
-            name: 'Misc.',
+            name: '기타.',
             inline: true,
-            value: '**Revives**: ' + revives + '\n'
-              + '**Suicides**: ' + suicides + '\n'
-              + '**Barricades**: ' + barricades_deployed + '\n'
-              + '**Reinforcements**: ' + reinforcements_deployed + '\n'
-              + '**Rappel Breaches**: ' + rappel_breaches + '\n'
-              + '**DBNOs**: ' + dbnos
+            value: '**팀원 살리기**: ' + revives + '\n'
+              + '**자살**: ' + suicides + '\n'
+              + '**바리케이드**: ' + barricades_deployed + '\n'
+              + '**강화**: ' + reinforcements_deployed + '\n'
+              + '**레펠 브리칭**: ' + rappel_breaches + '\n'
+              + '**다운시킨 적**: ' + dbnos
           },
         ],
         footer: {
           icon_url: 'https://r6stats.com/img/logos/r6stats-100.png',
-          text: 'Stats Provided by R6Stats.com',
+          text: 'R6Stats.com 에서 스탯 제공됨',
           url: 'https://r6stats.com'
         }
       }
@@ -140,7 +140,7 @@ class StatsCommand extends BaseCommand {
     let platform = getPlatform(this._args[i].toLowerCase())
     let queue = getGamemode(this._args[i + 1] ? this._args[i + 1].toLowerCase() : null)
     if (!platform) {
-      return this.reply(`The platform ${this._args[i]} is invalid. Specify pc, xbox, or ps4.`)
+      return this.reply(`${this._args[i]}플랫폼 이름이 올바르지 않습니다. pc, xbox, or ps4 중 하나를 선택하십시오.`)
     }
     this.platform = platform
     this.queue = queue || 'general'

@@ -13,30 +13,30 @@ class HelpCommand extends BaseCommand {
     this.reply({
       embed: {
         color: 3447003,
-        title: 'R6Stats Bot Help',
-        description: 'Options in <...> are required. Options in {...} are optional.',
+        title: 'NOBLE R6S STATS BOT 도움말',
+        description: '<...>로 표시된것들은 필수입니다. {...} 로 표시된것들은 필수적이지 않습니다.',
         thumbnail: {
-          url: 'https://r6stats.com/img/logos/r6stats-100.png',
+          url: 'https://i.imgur.com/gIX3Iih.png',
         },
         fields: [
           {
-            name: 'Stats',
+            name: '전적',
             inline: true,
-            value: '**Generic Stats**: r6s stats <username> <platform> {general|ranked|casual}\n' +
-              '**Seasonal/Rank Stats**: r6s rank <username> <platform> {region: ncsa|na|emea|eu|apac|asia} {season}\n' +
-              '**Operator Stats**: r6s operator <username> <platform> <operator>'
+            value: '**일반 전적**: r6s stats <닉네임> <플랫폼> {general|ranked|casual}\n' +
+              '**시즌/랭크 전적**: r6s rank <닉네임> <플랫폼> {지역: ncsa|na|emea|eu|apac|asia} {시즌}\n' +
+              '**오퍼레이터 전적**: r6s operator <닉네임> <플랫폼> <오퍼레이터>'
           },
           {
-            name: 'Other',
+            name: '기타',
             inline: true,
-            value: '**Random Operator**: r6s randomop <role>\n' +
-              '**Ping**: r6s ping\n' +
-              '**Invite Link**: r6s invite'
+            value: '**랜덤 오퍼레이터**: r6s randomop <역할>\n' +
+              '**핑**: r6s ping\n' +
+              '**초대 링크**: r6s invite'
           }
         ],
         footer: {
           icon_url: 'https://r6stats.com/img/logos/r6stats-100.png',
-          text: 'Bot provided by R6Stats.com',
+          text: 'R6Stats.com 에서 스탯 제공됨',
           url: 'https://r6stats.com'
         }
       }
