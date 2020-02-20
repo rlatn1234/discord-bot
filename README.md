@@ -1,6 +1,6 @@
 # R6Stats Discord Bot
 
-This bot is built with [DISCORD.js](https://discord.js.org/#/) to retrieve and display Rainbow Six: Siege stats from [R6Stats](https://r6stats.com)
+[DISCORD.js](https://discord.js.org/#/)로 만들어진 [R6Stats](https://r6stats.com)에서의 톰 클랜시의 레인보우 식스:시즈의 전적을 찾아주는 봇입니다. 
 
 ## 설치방법.
 처음 설치할때
@@ -15,11 +15,11 @@ yarn
 ```
 
 ### config.js 설정하기
-`config.example.js`파일을 복사하고 `config.js`으로 이름을 바꿔주세요.
-`login`을 r6stats 사이트의 아이디로 바꿔주세요.
-`password`를 r6stats 사이트의 비밀번호로 바꿔주세요.
-replace `base_url` with the API endpoint of r6stats
-replace `token` with your discord bot token, if you do not have one, create one [here](https://discordapp.com/developers/applications/)
+`config.example.js` 파일을 복사하고 `config.js`으로 이름을 바꿔주세요.
+`login` 을 r6stats 사이트의 아이디로 바꿔주세요.
+`password` 를 r6stats 사이트의 비밀번호로 바꿔주세요.
+`base_url` r6stats 사이트의 API 주소로 변경해주세요. (https://api.r6stats.com)
+`token` 을 당신의 디스코드 봇의 토큰으로 변경해주세요. 만약에 봇을 생성하지 않았다면 [여기](https://discordapp.com/developers/applications/)에서 토큰을 발급받아주세요.
 
 ## 실행법
 
@@ -34,12 +34,12 @@ yarn run dev
 ```
 
 ## 디버깅
-If you run into an error that says
+만약 아래와 같은 버그가 발생할경우
 ```
 The term 'yarn' is not recognized as the name of a cmdlet, function, script file, or operable program.
 ```
 
-Check your PATH system enviroment variables.
-Make sure you closed all the command-lines.
+시스템 환경 변수에 있는 PATH에 추가가 되어있는지 확인해주세요.
+모든 명령 프롬포트를 닫았는지 한번 더 확인해주세요.
 
-If the error still accures, restart your device, it should work after.
+만약 이 에러가 계속된다면 시스템을 재부팅해주세요.
