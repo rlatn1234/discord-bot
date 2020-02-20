@@ -16,9 +16,13 @@ yarn
 
 ### config.js 설정하기
 `config.example.js` 파일을 복사하고 `config.js`으로 이름을 바꿔주세요.
+
 `login` 을 r6stats 사이트의 아이디로 바꿔주세요.
+
 `password` 를 r6stats 사이트의 비밀번호로 바꿔주세요.
+
 `base_url` r6stats 사이트의 API 주소로 변경해주세요. (https://api.r6stats.com)
+
 `token` 을 당신의 디스코드 봇의 토큰으로 변경해주세요. 만약에 봇을 생성하지 않았다면 [여기](https://discordapp.com/developers/applications/)에서 토큰을 발급받아주세요.
 
 ## 실행법
