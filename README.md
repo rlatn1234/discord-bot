@@ -1,39 +1,39 @@
 # R6Stats Discord Bot
 
-This bot is built with [discordjs](https://discord.js.org/#/) to retrieve and display Rainbow Six: Siege stats from [R6Stats](https://r6stats.com)
+This bot is built with [DISCORD.js](https://discord.js.org/#/) to retrieve and display Rainbow Six: Siege stats from [R6Stats](https://r6stats.com)
 
-## Installation
-First-time run installation
+## 설치방법.
+처음 설치할때
 
-### Install Yarn
-Go to [yarn download page](https://yarnpkg.com/en/docs/install#windows-stable) and choose the platform that fits your needs, for example Windows.
+### Yarn 설치
+[yarn Windows 버젼 다운로드 페이지](https://yarnpkg.com/en/docs/install#windows-stable)에서 플랫폼에 맞는 파일을 찾아서 다운받아 설치하세요.
 
-### Run Yarn in the project
-Go into the folder where you placed the bot using a command-line tool and run (freshly opened after installing yarn)
+### Yarn으로 프로젝트 실행하기
+다운받은 폴더에서 명령 프롬포트를 열어서 다음 명령어를 실행하세요. (Yarn을 설치한 이후에 명령프롬포트를 실행해야합니다.)
 ```bash
 yarn
 ```
 
-### Setup the config
-Copy the `config.example.js` and create a `config.js`
-replace `login` with your uplay email adres
-replace `password` with your uplay password
+### config.js 설정하기
+`config.example.js`파일을 복사하고 `config.js`으로 이름을 바꿔주세요.
+`login`을 r6stats 사이트의 아이디로 바꿔주세요.
+`password`를 r6stats 사이트의 비밀번호로 바꿔주세요.
 replace `base_url` with the API endpoint of r6stats
 replace `token` with your discord bot token, if you do not have one, create one [here](https://discordapp.com/developers/applications/)
 
-## Running in Production
+## 실행법
 
 ```bash
 yarn start
 ```
 
-## Development & Testing
+## 개발 & 테스트용 실행
 
 ```bash
 yarn run dev
 ```
 
-## Debugging
+## 디버깅
 If you run into an error that says
 ```
 The term 'yarn' is not recognized as the name of a cmdlet, function, script file, or operable program.
